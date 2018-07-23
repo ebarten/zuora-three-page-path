@@ -1,0 +1,45 @@
+group 'com.zuora.coddingchallenge'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'application'
+mainClassName = 'com.zuora.coddingchallenge.threepagepath.ThreePagePathMain'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'commons-cli:commons-cli:1.4'
+    testCompile 'junit:junit:4.11'
+    testCompile 'org.hamcrest:hamcrest-library:1.3'
+    testCompile 'org.mockito:mockito-core:1.+'
+}
+
+jar {
+    baseName = project.name
+    manifest {
+        attributes(
+                'Main-Class': mainClassName,
+                "Class-Path": configurations.compile.collect { it.getName() }.join(' ')
+        )
+
+    }
+}
+
+run {
+    standardInput = System.in
+}
+
+task generateSampleData(type: Copy) {
+    from 'src/test/resources/paths'
+    into 'build/install/' + project.name + '/sample-data'
+}
+
+installDist.doLast{
+    generateSampleData.execute()
+}
+

@@ -1,0 +1,16 @@
+# Gradle
+# ------
+.gradle
+/gradle/*
+!/gradle/wrapper
+/build
+/buildSrc/build
+
+# IDEA
+# ----
+.idea
+.shelf
+/*.iml
+/*.ipr
+/*.iws
+/out
